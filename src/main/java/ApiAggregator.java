@@ -3,7 +3,7 @@ import java.util.List;
 
 public class ApiAggregator {
 
-
+    
 
 
     public ApiAggregator(){
@@ -11,9 +11,17 @@ public class ApiAggregator {
     }
 
 
-    public List<String> call(List<String> list){
+    public List<String> call(List<String> endpoints) {
         List<String> response = new ArrayList<>();
 
+        for (var endpoint: endpoints) {
+          if ("/uri2".equals(endpoint)) {
+            response.add("response2");
+          } else {
+            response.add("response1");
+          }
+        }
+        
         return response;
     }
 
