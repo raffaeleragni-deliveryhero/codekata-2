@@ -12,8 +12,8 @@
 
   <properties>
     <java.version>14</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.source>15</maven.compiler.source>
+    <maven.compiler.target>15</maven.compiler.target>
     <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
   </properties>
 

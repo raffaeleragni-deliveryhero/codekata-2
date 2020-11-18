@@ -3,11 +3,11 @@ import java.util.List;
 
 public class ApiAggregator {
 
-    
+    ApiCaller caller;
 
 
-    public ApiAggregator(){
-
+    public ApiAggregator(ApiCaller caller){
+      this.caller = caller;
     }
 
 
@@ -15,13 +15,9 @@ public class ApiAggregator {
         List<String> response = new ArrayList<>();
 
         for (var endpoint: endpoints) {
-          if ("/uri2".equals(endpoint)) {
-            response.add("response2");
-          } else {
-            response.add("response1");
-          }
+          response.add(caller.call(endpoint));
         }
-        
+
         return response;
     }
 

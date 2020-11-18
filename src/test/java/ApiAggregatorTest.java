@@ -6,14 +6,18 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ApiAggregatorTest {
 
     ApiAggregator aggregator;
+    ApiCaller caller;
 
     @BeforeEach
     void setup(){
-        aggregator = new ApiAggregator();
+        caller = mock(ApiCaller.class);
+        aggregator = new ApiAggregator(caller);
     }
 
     @Test
@@ -26,12 +30,16 @@ public class ApiAggregatorTest {
 
     @Test
     void singleEndpoint() {
+      when(caller.call("/uri1")).thenReturn("response1");
+
       var responseList = aggregator.call(List.of("/uri1"));
       assertThat(responseList, is(List.of("response1")));
     }
 
     @Test
     void responseWithDifferentUri() {
+      when(caller.call("/uri2")).thenReturn("response2");
+      
       var responseList = aggregator.call(List.of("/uri2"));
       assertThat(responseList, is(List.of("response2")));
     }
