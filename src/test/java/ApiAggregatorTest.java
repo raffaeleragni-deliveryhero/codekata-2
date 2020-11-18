@@ -44,5 +44,5 @@ public class ApiAggregatorTest {
       assertThat(responseList, is(List.of("response2")));
     }
 
-
+    
 }
