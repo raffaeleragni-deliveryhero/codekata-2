@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ApiAggregator {
 
@@ -15,7 +16,7 @@ public class ApiAggregator {
         List<String> response = new ArrayList<>();
 
         for (var endpoint: endpoints) {
-          response.add(caller.call(endpoint));
+            caller.call(endpoint).ifPresent(response::add);
         }
 
         return response;

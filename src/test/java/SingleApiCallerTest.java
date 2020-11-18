@@ -3,6 +3,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -45,6 +46,12 @@ public class SingleApiCallerTest {
 
     var result = apiCaller.call("http://openjdk.java.net/");
 
-    assertThat(result, is("response1"));
+    assertThat(result, is(Optional.of("response1")));
   }
+
+  // @Test
+
+
+
+
 }

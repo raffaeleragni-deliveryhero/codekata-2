@@ -1,4 +1,5 @@
+import java.util.Optional;
 
 public interface ApiCaller {
-  String call(String url);
+  Optional<String> call(String url);
 }

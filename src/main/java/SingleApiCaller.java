@@ -3,6 +3,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Objects;
+import java.util.Optional;
 
 public class SingleApiCaller implements ApiCaller {
 
@@ -13,17 +14,19 @@ public class SingleApiCaller implements ApiCaller {
   }
 
   @Override
-  public String call(String endpointUrl) {
+  public Optional<String> call(String endpointUrl) {
     Objects.requireNonNull(endpointUrl, "Null URL is passed");
 
     var request = HttpRequest.newBuilder()
       .uri(URI.create(endpointUrl))
       .build();
 
-    var futureResponse = client
-      .sendAsync(request, HttpResponse.BodyHandlers.ofString());
+    var response = client
+      .sendAsync(request, HttpResponse.BodyHandlers.ofString())
+      .join();
 
-    return futureResponse.join().body();
+
+    return Optional.of(response.body());
   }
 
 

@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -30,7 +31,7 @@ public class ApiAggregatorTest {
 
     @Test
     void singleEndpoint() {
-      when(caller.call("/uri1")).thenReturn("response1");
+      when(caller.call("/uri1")).thenReturn(Optional.of("response1"));
 
       var responseList = aggregator.call(List.of("/uri1"));
       assertThat(responseList, is(List.of("response1")));
@@ -38,11 +39,11 @@ public class ApiAggregatorTest {
 
     @Test
     void responseWithDifferentUri() {
-      when(caller.call("/uri2")).thenReturn("response2");
+      when(caller.call("/uri2")).thenReturn(Optional.of("response2"));
       
       var responseList = aggregator.call(List.of("/uri2"));
       assertThat(responseList, is(List.of("response2")));
     }
 
-    
+
 }
