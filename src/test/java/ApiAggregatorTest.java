@@ -40,8 +40,26 @@ public class ApiAggregatorTest {
     @Test
     void responseWithDifferentUri() {
       when(caller.call("/uri2")).thenReturn(Optional.of("response2"));
-      
+
       var responseList = aggregator.call(List.of("/uri2"));
+      assertThat(responseList, is(List.of("response2")));
+    }
+
+    @Test
+    void responseWithMulti() {
+      when(caller.call("/uri1")).thenReturn(Optional.of("response1"));
+      when(caller.call("/uri2")).thenReturn(Optional.of("response2"));
+
+      var responseList = aggregator.call(List.of("/uri1", "/uri2"));
+      assertThat(responseList, is(List.of("response1", "response2")));
+    }
+
+    @Test
+    void responseWithMixed() {
+      when(caller.call("/uri1")).thenReturn(Optional.empty());
+      when(caller.call("/uri2")).thenReturn(Optional.of("response2"));
+
+      var responseList = aggregator.call(List.of("/uri1", "/uri2"));
       assertThat(responseList, is(List.of("response2")));
     }
 
