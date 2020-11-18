@@ -42,6 +42,7 @@ public class SingleApiCallerTest {
     when(client.sendAsync(request, BodyHandlers.ofString()))
       .thenReturn(CompletableFuture.completedFuture(response));
 
+    when(response.statusCode()).thenReturn(200);
     when(response.body()).thenReturn("response1");
 
     var result = apiCaller.call("http://openjdk.java.net/");
@@ -49,7 +50,21 @@ public class SingleApiCallerTest {
     assertThat(result, is(Optional.of("response1")));
   }
 
-  // @Test
+  @Test
+  void test404() {
+    var request = HttpRequest.newBuilder()
+      .uri(URI.create("http://openjdk.java.net/"))
+      .build();
+    var response = mock(HttpResponse.class);
+    when(client.sendAsync(request, BodyHandlers.ofString()))
+      .thenReturn(CompletableFuture.completedFuture(response));
+
+    when(response.statusCode()).thenReturn(404);
+
+    var result = apiCaller.call("http://openjdk.java.net/");
+
+    assertThat(result, is(Optional.empty()));
+  }
 
 
 

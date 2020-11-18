@@ -25,6 +25,12 @@ public class ApiAggregatorIT {
 
     }
 
+    @Test
+    void notFoundApiCall(){
+        var response = apiCaller.call("http://localhost:12345/");
+        assertThat(response, is(Optional.empty()));
+
+    }
 
 
 

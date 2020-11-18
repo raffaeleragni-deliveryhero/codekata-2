@@ -25,6 +25,8 @@ public class SingleApiCaller implements ApiCaller {
       .sendAsync(request, HttpResponse.BodyHandlers.ofString())
       .join();
 
+    if (response.statusCode() != 200)
+      return Optional.empty();
 
     return Optional.of(response.body());
   }
